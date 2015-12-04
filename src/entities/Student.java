@@ -2,7 +2,7 @@ package entities;
 
 import java.util.Date;
 
-public class Student extends Person{
+public class Student{
 	
 
 	private Class classe;
