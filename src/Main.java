@@ -8,7 +8,7 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		printWelcome();
 		
-		while(running){
+		while (running) {
 			printMenu();
 			int opt = in.nextInt();
 			
