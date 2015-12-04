@@ -24,10 +24,6 @@ public class StudentController {
 	
 	private static HashMap<Integer, Person> mothers = new HashMap<Integer, Person>();
 
-	public static int getAndIncrementID(){
-		return StudentController.NEXT_ID++;
-	}
-	
 	public static void addFather(Person father){
 		fathers.put(father.getId(), father);
 	}
@@ -55,6 +51,14 @@ public class StudentController {
 	
 	
 	
+	public static int getNEXT_ID() {
+		return NEXT_ID;
+	}
+
+	public static void setNEXT_ID(int nEXT_ID) {
+		NEXT_ID = nEXT_ID;
+	}
+
 	// testando 
 	public static void main(String[] args) {
 		Sex x = Sex.Male;
