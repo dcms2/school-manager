@@ -35,11 +35,11 @@ public class Class {
 		return this.teacher;
 	}
 	
-	public Vector<Student> getStudents() {
+	public ArrayList<Student> getStudents() {
 		return this.students;
 	}
 	
-	public Subject getSubject() {
-		return this.subject;
+	public ArrayList<Subject> getSubject() {
+		return this.subjects;
 	}
 }
