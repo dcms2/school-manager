@@ -18,13 +18,14 @@ public class Person {
 	
 	private String email;
 
-	public Person(String name, Date birthdate, Sex sex, Address address, String email) {
+	public Person(String name, Date birthdate, Sex sex, Address address, String email, int id) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
 		this.sex = sex;
 		this.address = address;
 		this.email = email;
+		this.id =  id;
 	}
 
 	public int getId() {

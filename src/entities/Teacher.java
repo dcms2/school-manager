@@ -6,12 +6,10 @@ public class Teacher extends Person {
 
 	private double salary;
 	
-	private int id;
-	
 	public Teacher(String name, Date birthdate, Sex sex, Address address, String email, double salary, int id) {
-		super(name, birthdate, sex, address, email);
+		super(name, birthdate, sex, address, email, id);
 		this.salary = salary;
-		this.id = id;
+	
 	}
 	
 	public void setSalary(double newSalary) {
@@ -22,7 +20,4 @@ public class Teacher extends Person {
 		return this.salary;
 	}
 	
-	public int getId() {
-		return this.id;
-	}
 }
