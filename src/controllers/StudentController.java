@@ -16,7 +16,6 @@ import entities.Student;
 public class StudentController {
 	
 	
-	private static int NEXT_ID = 0 ; 
 	
 	private static HashMap<Integer, Student> students = new HashMap<Integer, Student>();
 	
@@ -47,30 +46,6 @@ public class StudentController {
 	public static ArrayList<Student> getStudents(){
 		return new ArrayList<Student>( StudentController.students.values() );
 	}	
-	
-	
-	
-	
-	public static int getNEXT_ID() {
-		return NEXT_ID;
-	}
-
-	public static void setNEXT_ID(int nEXT_ID) {
-		NEXT_ID = nEXT_ID;
-	}
-
-	// testando 
-	public static void main(String[] args) {
-		Sex x = Sex.Male;
-		Date d = new Date(1, 2, 3);
-		Address a = new Address("sei la", " s " , " as ");
-		
-		StudentController.addFather(new Person("duhan", d, x, a, "mras", 2));
-		
-		System.out.println(StudentController.getFathers());
-	}
-	
-	
 	
 	
 }
