@@ -3,24 +3,21 @@ package entities;
 import java.util.ArrayList;
 
 public class Class {
-	
-	private Teacher teacher;
+
 	private Student representant;
+	
 	private ArrayList<Student> students;
+	
 	private ArrayList<Subject> subjects;
 	
-	public Class(Teacher teacher) {
-		this(teacher, new ArrayList<Subject>(), new ArrayList<Student>());
+	public Class(ArrayList<Subject> subjects, ArrayList<Student> students) {
+		this(subjects, students, null);
 	}
 	
-	public Class(Teacher teacher, ArrayList<Subject> subjects) {
-		this(teacher, subjects, new ArrayList<Student>());
-	}
-	
-	public Class(Teacher teacher, ArrayList<Subject> subjects, ArrayList<Student> students) {
-		this.teacher = teacher;
+	public Class(ArrayList<Subject> subjects, ArrayList<Student> students, Student representant) {
 		this.subjects = subjects;
 		this.students = students;
+		this.representant = representant;
 	}
 	
 	public void addStudent(Student student) {
@@ -31,10 +28,14 @@ public class Class {
 		this.subjects.add(subject);
 	}
 	
-	public Teacher getTeacher() {
-		return this.teacher;
+	public void setRepresentant(int position) {
+		this.representant = this.students.get(position);
 	}
 	
+	public Student getRepresentant() {
+		return this.representant;
+	}
+		
 	public ArrayList<Student> getStudents() {
 		return this.students;
 	}
