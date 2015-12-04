@@ -10,7 +10,7 @@ public class Class {
 	private ArrayList<Subject> subjects;
 	
 	public Class(Teacher teacher) {
-		this(teacher, new ArrayList<Student>(), new ArrayList<Subject>());
+		this(teacher, new ArrayList<Subject>(), new ArrayList<Student>());
 	}
 	
 	public Class(Teacher teacher, ArrayList<Subject> subjects) {
