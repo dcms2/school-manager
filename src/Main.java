@@ -10,18 +10,7 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		printWelcome();
 		
-		try {
-			ResultSet s = Database.getInstance().executeQuery("SELECT * FROM person");
-			 while(s.next())
-	          {
-	            // read the result set
-	            System.out.println("name = " + s.getString("name"));
-	            System.out.println("id = " + s.getInt("id"));
-	          }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		
 		while (running) {
 			printMenu();
@@ -52,6 +41,6 @@ public class Main {
 		System.out.println("------------- MENU -------------");
 		System.out.println("  1) Cadastrar aluno");
 		System.out.println("  2) Cadastrar professor");
-		System.out.println("\nDigite o número da ação desejada: ");
+		System.out.println("\nDigite o nï¿½mero da aï¿½ï¿½o desejada: ");
 	}
 }
