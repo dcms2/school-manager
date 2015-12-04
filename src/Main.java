@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,6 +9,19 @@ public class Main {
 		boolean running = true;
 		Scanner in = new Scanner(System.in);
 		printWelcome();
+		
+		try {
+			ResultSet s = Database.getInstance().executeQuery("SELECT * FROM person");
+			 while(s.next())
+	          {
+	            // read the result set
+	            System.out.println("name = " + s.getString("name"));
+	            System.out.println("id = " + s.getInt("id"));
+	          }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		while (running) {
 			printMenu();
