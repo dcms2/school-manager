@@ -2,11 +2,11 @@ package entities;
 
 import java.util.Date;
 
-enum Sex{
-	Male, Female;
-}
 
 public class Person {
+
+
+	private int id;
 	
 	private String name;
 	
@@ -25,6 +25,14 @@ public class Person {
 		this.sex = sex;
 		this.address = address;
 		this.email = email;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -68,5 +76,7 @@ public class Person {
 	}
 	
 	
-	
+	public static void main(String[] args) {
+		
+	}
 }
