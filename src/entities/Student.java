@@ -11,12 +11,21 @@ public class Student extends Person{
 	
 	private Person mother;
 
+
+	
+	public Student(Person student, Person father, Person mother){
+		super.setPerson(student);
+		this.father = father;
+		this.mother = mother;
+	}
+	
 	public Student(String name, Date birthdate, Sex sex, Address address, String email, Class classe,
 			Person father, Person mother, int id) {
 		super(name, birthdate, sex, address, email, id);
 		this.classe = classe;
 		this.father = father;
 		this.mother = mother;
+		
 	}
 
 	public Class getClasse() {

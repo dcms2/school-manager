@@ -17,7 +17,9 @@ public class Person {
 	private Address address;
 	
 	private String email;
-
+	
+	public Person(){ }
+	
 	public Person(String name, Date birthdate, Sex sex, Address address, String email, int id) {
 		super();
 		this.name = name;
@@ -34,6 +36,22 @@ public class Person {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setPerson(Person p){
+		this.setId(p.getId());
+		this.setName(p.getName());
+		this.setBirthdate(p.getBirthdate());
+		this.setSex(p.getSex());
+		this.setAddress(p.getAddress());
+		this.setEmail(p.getEmail()); 
+	}
+	
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", birthdate="
+				+ birthdate + ", sex=" + sex + ", address=" + address
+				+ ", email=" + email + "]";
 	}
 
 	public String getName() {
