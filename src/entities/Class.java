@@ -40,7 +40,7 @@ public class Class {
 		return this.students;
 	}
 	
-	public ArrayList<Subject> getSubject() {
+	public ArrayList<Subject> getSubjects() {
 		return this.subjects;
 	}
 }

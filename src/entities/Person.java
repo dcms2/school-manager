@@ -2,7 +2,6 @@ package entities;
 
 import java.util.Date;
 
-
 public class Person {
 
 	private int id;
@@ -91,6 +90,5 @@ public class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
+	}	
 }

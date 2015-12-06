@@ -10,17 +10,17 @@ public class StudentController {
 	
 	private static int nextId = 0;
 	
-	public static void save(Student s){
+	public static void save(Student s) {
 		PersonController.save(s.getFather());
 		PersonController.save(s.getMother());
-		if(s.getId() == -1){ // update
+		if (s.getId() == -1) { // update
 			s.setId(nextId++);
 		}
 		students.put(s.getId(), s);
 	}
 	
 	public static ArrayList<Student> getAll(){
-		return new ArrayList<Student>( students.values() );
+		return new ArrayList<Student>(students.values());
 	}	
 	
 	

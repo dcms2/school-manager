@@ -52,5 +52,4 @@ public class Student{
 	public String toString() {
 		return super.toString() + "," + this.getFather().getId() + "," + this.getMother().getId();
 	}
-	
 }

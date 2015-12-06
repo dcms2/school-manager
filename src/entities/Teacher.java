@@ -19,5 +19,4 @@ public class Teacher extends Person {
 	public double getSalary() {
 		return this.salary;
 	}
-	
 }
