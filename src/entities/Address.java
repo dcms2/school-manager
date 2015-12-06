@@ -33,8 +33,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address [city=" + city + ", country=" + country + ", street="
-				+ street + "]";
+		return city + "," + country + ","+ street;
 	}
 
 	public String getStreet() {

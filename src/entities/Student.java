@@ -4,15 +4,12 @@ import java.util.Date;
 
 public class Student{
 	
-
 	private Class classe;
 	
 	private Person father;
 	
 	private Person mother;
 
-
-	
 	public Student(Person student, Person father, Person mother){
 		super.setPerson(student);
 		this.father = father;
@@ -21,7 +18,7 @@ public class Student{
 	
 	public Student(String name, Date birthdate, Sex sex, Address address, String email, Class classe,
 			Person father, Person mother, int id) {
-		super(name, birthdate, sex, address, email, id);
+		super(name, birthdate, sex, address, email);
 		this.classe = classe;
 		this.father = father;
 		this.mother = mother;
@@ -50,6 +47,10 @@ public class Student{
 
 	public void setMother(Person mother) {
 		this.mother = mother;
+	}
+	
+	public String toString() {
+		return super.toString() + "," + this.getFather().getId() + "," + this.getMother().getId();
 	}
 	
 }

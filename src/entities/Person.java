@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class Person {
 
-
 	private int id;
 	
 	private String name;
@@ -20,14 +19,14 @@ public class Person {
 	
 	public Person(){ }
 	
-	public Person(String name, Date birthdate, Sex sex, Address address, String email, int id) {
+	public Person(String name, Date birthdate, Sex sex, Address address, String email) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
 		this.sex = sex;
 		this.address = address;
 		this.email = email;
-		this.id =  id;
+		this.id = -1;
 	}
 
 	public int getId() {
@@ -49,9 +48,9 @@ public class Person {
 	
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", birthdate="
-				+ birthdate + ", sex=" + sex + ", address=" + address
-				+ ", email=" + email + "]";
+		return id + "," + name + ","
+				+ birthdate + "," + sex + "," + address
+				+ "," + email;
 	}
 
 	public String getName() {
@@ -94,8 +93,4 @@ public class Person {
 		this.email = email;
 	}
 	
-	
-	public static void main(String[] args) {
-		
-	}
 }

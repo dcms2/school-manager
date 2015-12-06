@@ -1,50 +1,26 @@
 package controllers;
 
-
-
-import java.lang.reflect.Array;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-
-import entities.Address;
-import entities.Person;
-import entities.Sex;
 import entities.Student;
 
 public class StudentController {
 	
-	
-	
 	private static HashMap<Integer, Student> students = new HashMap<Integer, Student>();
 	
-	private static HashMap<Integer, Person> fathers = new HashMap<Integer, Person>();
+	private static int nextId = 0;
 	
-	private static HashMap<Integer, Person> mothers = new HashMap<Integer, Person>();
-
-	public static void addFather(Person father){
-		fathers.put(father.getId(), father);
+	public static void save(Student s){
+		PersonController.save(s.getFather());
+		PersonController.save(s.getMother());
+		if(s.getId() == -1){ // update
+			s.setId(nextId++);
+		}
+		students.put(s.getId(), s);
 	}
 	
-	public static void addMother(Person mother){
-		mothers.put(mother.getId(), mother);
-	}	
-	
-	public static void addStudent(Student student ){
-		students.put(student.getId(), student);
-	}	
-	
-	public static ArrayList<Person> getFathers(){
-		return new ArrayList<Person>( StudentController.fathers.values() );
-	}
-	
-	public static ArrayList<Person> getMothers(){
-		return new ArrayList<Person>( StudentController.mothers.values());
-	}
-	
-	public static ArrayList<Student> getStudents(){
-		return new ArrayList<Student>( StudentController.students.values() );
+	public static ArrayList<Student> getAll(){
+		return new ArrayList<Student>( students.values() );
 	}	
 	
 	

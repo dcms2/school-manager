@@ -7,7 +7,7 @@ public class Teacher extends Person {
 	private double salary;
 	
 	public Teacher(String name, Date birthdate, Sex sex, Address address, String email, double salary, int id) {
-		super(name, birthdate, sex, address, email, id);
+		super(name, birthdate, sex, address, email);
 		this.salary = salary;
 	
 	}

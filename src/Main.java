@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import controllers.PersonController;
 import controllers.StudentController;
 
 import entities.Address;
@@ -29,26 +30,7 @@ public class Main {
 			in.nextLine();
 			switch (opt) {
 			case REGISTER_STUDENT:
-				Person father, mother, studentPerson;
-				System.out.println("Cadastrando os dados do aluno:");
-				studentPerson = retrievePerson(); 
-				father = listAndGet(StudentController.getFathers(), "pai");
-				if(father == null ) {
-					System.out.println("Cadastrando os dados do pai:");
-					father = retrievePerson();
-					System.out.println("Pai " + father + " cadastrado com sucesso");
-					StudentController.addFather(father);
-				}
-				mother = listAndGet(StudentController.getMothers(), "m√£e");				
-				if(mother == null ) {
-					System.out.println("Cadastrando os dados da m√£e:");
-					mother = retrievePerson();
-					System.out.println("M√£e " + mother + " cadastrado com sucesso");
-					StudentController.addMother(mother);					
-				}
-				Student student = new Student(studentPerson, father, mother);
-				StudentController.addStudent(student );
-				System.out.println("Estudante: " + student + " cadastrado com sucesso.");
+				studentRegister();
 				break;
 
 			default:
@@ -84,59 +66,83 @@ public class Main {
 	}
 	
 	
-	static Person retrievePerson(){
-		Sex[] sexOptions = {null, Sex.Male, Sex.Female};
-		Person person = null;
+	public static Person personRegister(){
 		String name;
 		int sexInput;  
 		Sex sex;
 		String dateInput; 
-		Date birthdate; 
-		Address address;
 		String city, country, street;
 		String email;
-		System.out.println("Nome:");
-		name = in.nextLine();
-		if(name.isEmpty()) name = in.nextLine();
-		System.out.println("Data de nascimento no formato (DD/MM/AAAA):"); //  VALIDAR DEPOIS COM ASPECTO 
-		dateInput = in.nextLine();
-		birthdate = new Date(dateInput);
-		System.out.println("Sexo:\n(1)-Masculino\n(2)-Feminino");
-		sexInput = in.nextInt(); 
-		in.nextLine();
-		sex = sexOptions[sexInput];
 		
-		System.out.println("Cadastro de Endere√ßo:");
+		System.out.print("Nome completo:");
+		name = in.nextLine();
+		
+		System.out.print("Data de nascimento no formato (DD/MM/AAAA):"); //  VALIDAR DEPOIS COM ASPECTO 
+		dateInput = in.nextLine();
+		
+		System.out.println("Sexo:\n(1)-Masculino\n(2)-Feminino");
+		sexInput = in.nextInt();
+		sex = (sexInput == 1) ? Sex.Male : Sex.Female;
+		in.nextLine();
+		
+		System.out.println("Cadastro de EndereÁo:");
 
-		System.out.println("Rua");
+		System.out.print("Logradouro: ");
 		street = in.nextLine();
-		System.out.println("Cidade:");
+		
+		System.out.print("Cidade:");
 		city = in.nextLine();
-		System.out.println("Pa√≠s:");
+		
+		System.out.print("PaÌs:");
 		country = in.nextLine();
-		address = new Address(city, country, street);
+		
 		System.out.println("Email:");
 		email = in.nextLine();
-	
-		person = new Person(name, birthdate, sex, address, email, StudentController.getAndIncrementID() );		
+		
+		//Date birthdate = new Date(dateInput); 
+		Date birthdate = new Date("10/04/1995"); // test
+		Address address = new Address(city, country, street);
+		Person person = new Person(name, birthdate, sex, address, email );		
 		return person;
 	}
 	
-	
-	public static Person listAndGet(ArrayList<Person> retrieved, String type){
-		Person person = null;
-		int opt;  
-		System.out.println("Qual desses se identifica como " + type + " do aluno?");
-		for(int i =0 ; i < retrieved.size(); i++) { 
-			System.out.println("(" + i+") " + retrieved.get(i).getName() );
-		}
-		System.out.println("(" + retrieved.size() +") " + "N√£o cadastrado ");
-		opt = in.nextInt();
-		in.nextLine();
-		if(opt == retrieved.size() ) return null;
-		return retrieved.get(opt); 
+	public static void studentRegister(){;
+		System.out.println("-- Cadastro de Aluno --");
+		
+		System.out.println("Dados do Pai");
+		Person father = listOrRegisterParent(PersonController.getBySex(Sex.Male));
+		PersonController.save(father);
+		System.out.println();
+		
+		System.out.println("Dados da M‚e");
+		Person mother = listOrRegisterParent(PersonController.getBySex(Sex.Female));
+		PersonController.save(mother);
+		System.out.println();
+		
+		System.out.println("Dados do aluno");
+		Person studentPerson = personRegister();
+		System.out.println();
+		
+		Student student = new Student(studentPerson, father, mother);
+		StudentController.save(student);
+		System.out.println("Estudante " + student.getName() + " cadastrado com sucesso.");
 	}
 	
+	public static Person listOrRegisterParent(ArrayList<Person> persons){
+		System.out.println("Selecione uma das pessoas j· registradas ou deixe em branco para criar uma nova");
+		for(Person p: persons){
+			System.out.println(p.getId() + ") " + p.getName());
+		}
+		System.out.print("> ");
+		String r = in.nextLine();
+		Person person = null;
+		if(r.isEmpty()){
+			person = personRegister();
+		}else{
+			person = PersonController.getById(Integer.parseInt(r));
+		}
+		return person;
+	}
 	
 
 	
