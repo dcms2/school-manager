@@ -10,11 +10,9 @@ public class PersonController {
 
 	private static HashMap<Integer, Person> persons = new HashMap<Integer, Person>();
 	
-	private static int nextId = 0;
-	
 	public static void save(Person p){
 		if(p.getId() == -1){ // new person
-			p.setId(nextId++);
+			p.setId(getAndIncrementID());
 		}
 		persons.put(p.getId(), p);
 	}
