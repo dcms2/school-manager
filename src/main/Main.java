@@ -1,3 +1,4 @@
+package main;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,13 +14,13 @@ import entities.Sex;
 import entities.Student;
 
 public class Main {
+	
 	static Scanner in = new Scanner(System.in);
+
 	final static int REGISTER_STUDENT = 1;
 	final static int REGISTER_TEACHER = 2; 
-	
-	
-	public static void main(String[] args){
-		
+
+	public static void main(String[] args) {
 		boolean running = true;
 		
 		printWelcome();
@@ -42,7 +43,7 @@ public class Main {
 		in.close();
 	}
 	
-	public static void printWelcome(){
+	public static void printWelcome() {
 		System.out.println("Seja bem vindo ao");
 		System.out.println("   _____      _                 _ __  __                                   ");
 		System.out.println("  / ____|    | |               | |  \\/  |                                  ");
@@ -54,19 +55,19 @@ public class Main {
 		System.out.println("                                                           |___/           ");
 	}
 	
-	public static void clear(){
+	public static void clear() {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 	
-	public static void printMenu(){
+	public static void printMenu() {
 		System.out.println("------------- MENU -------------");
 		System.out.println("  "+REGISTER_STUDENT+") Cadastrar aluno");
 		System.out.println("  "+REGISTER_TEACHER+") Cadastrar professor");
-		System.out.println("\nDigite o nï¿½mero da aï¿½ï¿½o desejada: ");
+		System.out.println("\nDigite o numero da opcao desejada: ");
 	}
 	
 	
-	public static Person personRegister(){
+	public static Person personRegister() {
 		String name;
 		int sexInput;  
 		Sex sex;
@@ -106,7 +107,7 @@ public class Main {
 		return person;
 	}
 	
-	public static void studentRegister(){;
+	public static void studentRegister() {
 		System.out.println("-- Cadastro de Aluno --");
 		
 		System.out.println("Dados do Pai");
@@ -128,24 +129,21 @@ public class Main {
 		System.out.println("Estudante " + student.getName() + " cadastrado com sucesso.");
 	}
 	
-	public static Person listOrRegisterParent(ArrayList<Person> persons){
+	public static Person listOrRegisterParent(ArrayList<Person> people) {
 		System.out.println("Selecione uma das pessoas já registradas ou deixe em branco para criar uma nova");
-		for(Person p: persons){
+		for (Person p: people) {
 			System.out.println(p.getId() + ") " + p.getName());
 		}
 		System.out.print("> ");
 		String r = in.nextLine();
 		Person person = null;
-		if(r.isEmpty()){
+		if (r.isEmpty()) {
 			person = personRegister();
-		}else{
+		} else {
 			person = PersonController.getById(Integer.parseInt(r));
 		}
 		return person;
 	}
-	
-
-	
 }
 
 

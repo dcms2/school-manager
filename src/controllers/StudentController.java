@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import entities.Person;
 import entities.Student;
 
 public class StudentController {
@@ -19,9 +21,15 @@ public class StudentController {
 		students.put(s.getId(), s);
 	}
 	
-	public static ArrayList<Student> getAll(){
+	public static ArrayList<Student> getAll() {
 		return new ArrayList<Student>(students.values());
-	}	
+	}
 	
+	public static void setData(HashMap<Integer, Student> students) {
+		StudentController.students = students;
+	}
 	
+	public static HashMap<Integer, Student> getData() {
+		return students;
+	}
 }

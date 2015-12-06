@@ -12,7 +12,7 @@ public class PersonController {
 	
 	public static void save(Person p) {
 		if (p.getId() == -1) { // new person
-			p.setId(getAndIncrementID());
+			p.setId(PersonController.getAndIncrementID());
 		}
 		people.put(p.getId(), p);
 	}
@@ -31,5 +31,13 @@ public class PersonController {
 			if (p.getSex().equals(sex)) result.add(p);
 		}
 		return result;
+	}
+	
+	public static void setData(HashMap<Integer, Person> people) {
+		PersonController.people = people;
+	}
+	
+	public static HashMap<Integer, Person> getData() {
+		return people;
 	}
 }

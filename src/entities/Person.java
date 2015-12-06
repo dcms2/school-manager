@@ -1,8 +1,11 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Person {
+public class Person implements Serializable {
+
+	private static final long serialVersionUID = -84434539764735947L;
 
 	private int id;
 	

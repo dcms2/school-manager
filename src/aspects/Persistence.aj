@@ -1,37 +1,61 @@
 package aspects;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 import entities.Person;
 import entities.Student;
 
 import controllers.PersonController;
 import controllers.StudentController;
+import main.Main;
 
 public aspect Persistence {
-	
+
+	private static String STUDENT_FILENAME = "students.ser";
+
+	private static String PERSON_FILENAME = "people.ser";
+
 	pointcut create():
 		execution(static * (PersonController || StudentController).save(Person||Student));
-		
-	after(Person p) returning: create() && args(p){
-		String filename = "";
-		if(p instanceof Student){
-			filename = "students.csv";
-		}else{
-			filename = "persons.csv";
-		}
+
+	pointcut program_starting():
+		execution(* Main.main(*));
+
+	after(Person p) returning: create() && args(p) {
 		try {
-			if (Files.notExists(Paths.get(filename), LinkOption.NOFOLLOW_LINKS))
-			    Files.createFile(Paths.get(filename));
-			Files.write(Paths.get(filename), (p.toString() + "\n").getBytes(), StandardOpenOption.APPEND);
+			if (p instanceof Student) {
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(STUDENT_FILENAME));
+				oos.writeObject(StudentController.getData());
+				oos.close();
+			} else {
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PERSON_FILENAME));
+				oos.writeObject(PersonController.getData());
+				oos.close();
+			}			
 		} catch (IOException e) {
-			System.out.println("Erro ao persistir dados.");
+			System.err.println("Erro ao persistir dados.");
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	before(): program_starting() {
+		try {
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(STUDENT_FILENAME));
+			StudentController.setData((HashMap<Integer, Student>) ois.readObject());
+			ois.close();
+
+			ois = new ObjectInputStream(new FileInputStream(PERSON_FILENAME));
+			PersonController.setData((HashMap<Integer, Person>) ois.readObject());
+			ois.close();
+		} catch (ClassNotFoundException e) {
+			System.err.println("Erro ao ler dados.");
+		} catch (IOException e) {
+			System.err.println("Erro ao ler dados.");
+		}
+	}	
 }

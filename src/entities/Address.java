@@ -1,7 +1,11 @@
 package entities;
 
-public class Address {
-	
+import java.io.Serializable;
+
+public class Address implements Serializable {
+
+	private static final long serialVersionUID = -5826243102556490575L;
+
 	private String city;
 	
 	private String country;
