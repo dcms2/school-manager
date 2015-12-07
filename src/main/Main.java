@@ -2,7 +2,6 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -17,7 +16,7 @@ import exceptions.NotImplementedException;
 
 public class Main {
 	
-	static Scanner in = new Scanner(System.in);
+	public static Scanner in = new Scanner(System.in);
 
 	final static int REGISTER_STUDENT = 1;
 	final static int REGISTER_TEACHER = 2; 

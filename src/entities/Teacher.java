@@ -8,10 +8,14 @@ public class Teacher extends Person {
     
     private double salary;
 	
+    public Teacher(Person person, double salary) {
+    	super.setPerson(person);
+    	this.salary = salary;
+    }
+    
 	public Teacher(String name, Calendar birthdate, Sex sex, Address address, String email, double salary, int id) {
 		super(name, birthdate, sex, address, email);
 		this.salary = salary;
-	
 	}
 	
 	public void setSalary(double newSalary) {
