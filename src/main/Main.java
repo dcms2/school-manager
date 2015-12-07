@@ -7,11 +7,12 @@ import java.util.Scanner;
 
 import controllers.PersonController;
 import controllers.StudentController;
-
+import controllers.TeacherController;
 import entities.Address;
 import entities.Person;
 import entities.Sex;
 import entities.Student;
+import entities.Teacher;
 import exceptions.NotImplementedException;
 
 public class Main {
@@ -19,7 +20,9 @@ public class Main {
 	public static Scanner in = new Scanner(System.in);
 
 	final static int REGISTER_STUDENT = 1;
-	final static int REGISTER_TEACHER = 2; 
+	final static int REGISTER_TEACHER = 2;
+	final static int VIEW_STUDENT = 3;
+	final static int VIEW_TEACHER = 4;
 
 	public static void main(String[] args) {
 		boolean running = true;
@@ -36,6 +39,12 @@ public class Main {
 				break;
 			case REGISTER_TEACHER:
 				registerTeacher(); 
+				break;
+			case VIEW_STUDENT:
+				viewStudents();
+				break;
+			case VIEW_TEACHER:
+				viewTeachers();
 				break;
 			default:
 				break;
@@ -66,6 +75,8 @@ public class Main {
 		System.out.println("------------- MENU -------------");
 		System.out.println("  " + REGISTER_STUDENT + ") Cadastrar aluno");
 		System.out.println("  " + REGISTER_TEACHER + ") Cadastrar professor");
+		System.out.println("  " + VIEW_STUDENT + ") Visualizar estudantes");
+		System.out.println("  " + VIEW_TEACHER + ") Visualizar professores");
 		System.out.println("\nDigite o numero da opcao desejada: ");
 	}
 	
@@ -132,6 +143,20 @@ public class Main {
 	
 	public static void registerTeacher() throws NotImplementedException {
 		throw new NotImplementedException();
+	}
+	
+	public static void viewStudents() {
+		ArrayList<Student> students = StudentController.getAll();
+		for (Student s : students) {
+			System.out.println(s.getId() + ") " + s.getName());
+		}
+	}
+	
+	public static void viewTeachers() {
+		ArrayList<Teacher> teachers = TeacherController.getAll();
+		for (Teacher t : teachers) {
+			System.out.println(t.getId() + ") " + t.getName());
+		}
 	}
 	
 	public static Person listOrRegisterParent(ArrayList<Person> people) {
