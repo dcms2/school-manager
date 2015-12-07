@@ -81,11 +81,9 @@ public class Main {
 		System.out.print("Nome completo:");
 		name = in.nextLine();
 		
-		System.out.print("Data de nascimento no formato (DD/MM/AAAA):"); 
+		System.out.print("Data de nascimento(ex: 10/08/1991):"); 
 		String line[] = in.nextLine().split("/");
-		birthDate = new GregorianCalendar(Integer.parseInt(line[2]),
-										  Integer.parseInt(line[1]) - 1,
-										  Integer.parseInt(line[0]));
+		birthDate = new GregorianCalendar(Integer.parseInt(line[2]), Integer.parseInt(line[1]) - 1, Integer.parseInt(line[0]));
 		
 		System.out.println("Sexo:\n(1)-Masculino\n(2)-Feminino");
 		sexInput = in.nextInt();
