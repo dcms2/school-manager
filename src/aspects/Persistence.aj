@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import entities.Person;
@@ -16,7 +17,7 @@ import controllers.StudentController;
 import controllers.TeacherController;
 import main.Main;
 
-public aspect Persistence {
+public privileged aspect Persistence {
 
 	private String STUDENT_FILENAME = "students.ser";
 
@@ -54,22 +55,28 @@ public aspect Persistence {
 	before(): program_starting() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(STUDENT_FILENAME));
-			StudentController.setData((HashMap<Integer, Student>) ois.readObject());
+			StudentController.save((HashMap<Integer, Student>) ois.readObject());
 			ois.close();
 			
+			StudentController.setNextID(StudentController.maxKeyValue() + 1);
+			
 			ois = new ObjectInputStream(new FileInputStream(TEACHER_FILENAME));
-			TeacherController.setData((HashMap<Integer, Teacher>) ois.readObject());
+			TeacherController.save((HashMap<Integer, Teacher>) ois.readObject());
 			ois.close();
+			
+			TeacherController.setNextID(TeacherController.maxKeyValue() + 1);
 
 			ois = new ObjectInputStream(new FileInputStream(PERSON_FILENAME));
-			PersonController.setData((HashMap<Integer, Person>) ois.readObject());
+			PersonController.save((HashMap<Integer, Person>) ois.readObject());
 			ois.close();
+			
+			PersonController.setNextID(PersonController.maxKeyValue() + 1);
 		} catch (ClassNotFoundException e) {
 			System.err.println("Erro ao ler dados.");
 		} catch (FileNotFoundException e) {
-			
+			System.err.println("file not found");
 		} catch (IOException e) {
 			System.err.println("Erro ao ler dados.");
 		}
-	}	
+	}
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import entities.Person;
 import entities.Sex;
@@ -9,6 +10,8 @@ import entities.Sex;
 public class PersonController {
 
 	private static HashMap<Integer, Person> people = new HashMap<Integer, Person>();
+	
+	private static int nextId;
 	
 	public static void save(Person p) {
 		if (p.getId() == -1) { // new person
@@ -33,11 +36,24 @@ public class PersonController {
 		return result;
 	}
 	
-	public static void setData(HashMap<Integer, Person> people) {
-		PersonController.people = people;
+	public static void save(HashMap<Integer, Person> people) {
+		PersonController.people.putAll(people);
 	}
 	
 	public static HashMap<Integer, Person> getData() {
 		return people;
+	}
+	
+	public static void setNextID(int nextId) {
+		PersonController.nextId = nextId;
+	}
+	
+	public static int maxKeyValue() {
+		Iterator<Integer> it = people.keySet().iterator();
+		int ret = 0;
+		while (it.hasNext()) {
+			ret = Math.max(ret, it.next());
+		}
+		return ret;
 	}
 }

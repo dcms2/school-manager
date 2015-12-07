@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import entities.Teacher;
 
@@ -13,7 +14,7 @@ public class TeacherController {
 	
 	public static void save(Teacher t) {
 		if (t.getId() == -1) {  // new teacher
-			t.setId(nextId++);
+			t.setId(TeacherController.nextId++);
 		}
 		teachers.put(t.getId(), t);
 	}
@@ -22,11 +23,24 @@ public class TeacherController {
 		return new ArrayList<Teacher>(teachers.values());
 	}
 	
-	public static void setData(HashMap<Integer, Teacher> teachers) {
-		TeacherController.teachers = teachers;
+	public static void save(HashMap<Integer, Teacher> teachers) {
+		TeacherController.teachers.putAll(teachers);
 	}
 	
 	public static HashMap<Integer, Teacher> getData() {
 		return teachers;
+	}
+	
+	public static void setNextID(int nextId) {
+		TeacherController.nextId = nextId;
+	}
+	
+	public static int maxKeyValue() {
+		Iterator<Integer> it = teachers.keySet().iterator();
+		int ret = 0;
+		while (it.hasNext()) {
+			ret = Math.max(ret, it.next());
+		}
+		return ret;
 	}
 }
