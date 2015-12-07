@@ -1,7 +1,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Person implements Serializable {
 
@@ -11,7 +11,7 @@ public class Person implements Serializable {
 	
 	private String name;
 	
-	private Date birthdate;
+	private Calendar birthdate;
 	
 	private Sex sex;
 	
@@ -21,7 +21,7 @@ public class Person implements Serializable {
 	
 	public Person(){ }
 	
-	public Person(String name, Date birthdate, Sex sex, Address address, String email) {
+	public Person(String name, Calendar birthdate, Sex sex, Address address, String email) {
 		super();
 		this.name = name;
 		this.birthdate = birthdate;
@@ -63,11 +63,11 @@ public class Person implements Serializable {
 		this.name = name;
 	}
 
-	public Date getBirthdate() {
+	public Calendar getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(Calendar birthdate) {
 		this.birthdate = birthdate;
 	}
 

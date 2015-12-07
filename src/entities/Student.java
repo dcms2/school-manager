@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Student implements Serializable {
@@ -19,7 +20,7 @@ public class Student implements Serializable {
 		this.mother = mother;
 	}
 	
-	public Student(String name, Date birthdate, Sex sex, Address address, String email, Class classe,
+	public Student(String name, Calendar birthdate, Sex sex, Address address, String email, Class classe,
 			Person father, Person mother, int id) {
 		super(name, birthdate, sex, address, email);
 		this.classe = classe;

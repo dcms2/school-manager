@@ -1,8 +1,9 @@
 package main;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import controllers.PersonController;
@@ -12,6 +13,7 @@ import entities.Address;
 import entities.Person;
 import entities.Sex;
 import entities.Student;
+import exceptions.NotImplementedException;
 
 public class Main {
 	
@@ -31,9 +33,11 @@ public class Main {
 			in.nextLine();
 			switch (opt) {
 			case REGISTER_STUDENT:
-				studentRegister();
+				registerStudent();
 				break;
-
+			case REGISTER_TEACHER:
+				registerTeacher(); 
+				break;
 			default:
 				break;
 			}
@@ -61,25 +65,27 @@ public class Main {
 	
 	public static void printMenu() {
 		System.out.println("------------- MENU -------------");
-		System.out.println("  "+REGISTER_STUDENT+") Cadastrar aluno");
-		System.out.println("  "+REGISTER_TEACHER+") Cadastrar professor");
+		System.out.println("  " + REGISTER_STUDENT + ") Cadastrar aluno");
+		System.out.println("  " + REGISTER_TEACHER + ") Cadastrar professor");
 		System.out.println("\nDigite o numero da opcao desejada: ");
 	}
 	
-	
-	public static Person personRegister() {
+	public static Person registerPerson() {
 		String name;
 		int sexInput;  
 		Sex sex;
-		String dateInput; 
+		Calendar birthDate; 
 		String city, country, street;
 		String email;
 		
 		System.out.print("Nome completo:");
 		name = in.nextLine();
 		
-		System.out.print("Data de nascimento no formato (DD/MM/AAAA):"); //  VALIDAR DEPOIS COM ASPECTO 
-		dateInput = in.nextLine();
+		System.out.print("Data de nascimento no formato (DD/MM/AAAA):"); 
+		String line[] = in.nextLine().split("/");
+		birthDate = new GregorianCalendar(Integer.parseInt(line[2]),
+										  Integer.parseInt(line[1]) - 1,
+										  Integer.parseInt(line[0]));
 		
 		System.out.println("Sexo:\n(1)-Masculino\n(2)-Feminino");
 		sexInput = in.nextInt();
@@ -91,23 +97,21 @@ public class Main {
 		System.out.print("Logradouro: ");
 		street = in.nextLine();
 		
-		System.out.print("Cidade:");
+		System.out.print("Cidade: ");
 		city = in.nextLine();
 		
-		System.out.print("País:");
+		System.out.print("País: ");
 		country = in.nextLine();
 		
-		System.out.println("Email:");
+		System.out.print("Email: ");
 		email = in.nextLine();
-		
-		//Date birthdate = new Date(dateInput); 
-		Date birthdate = new Date("10/04/1995"); // test
+		 
 		Address address = new Address(city, country, street);
-		Person person = new Person(name, birthdate, sex, address, email );		
+		Person person = new Person(name, birthDate, sex, address, email);		
 		return person;
 	}
 	
-	public static void studentRegister() {
+	public static void registerStudent() {
 		System.out.println("-- Cadastro de Aluno --");
 		
 		System.out.println("Dados do Pai");
@@ -121,12 +125,16 @@ public class Main {
 		System.out.println();
 		
 		System.out.println("Dados do aluno");
-		Person studentPerson = personRegister();
+		Person studentPerson = registerPerson();
 		System.out.println();
 		
 		Student student = new Student(studentPerson, father, mother);
 		StudentController.save(student);
 		System.out.println("Estudante " + student.getName() + " cadastrado com sucesso.");
+	}
+	
+	public static void registerTeacher() throws NotImplementedException {
+		throw new NotImplementedException();
 	}
 	
 	public static Person listOrRegisterParent(ArrayList<Person> people) {
@@ -138,27 +146,10 @@ public class Main {
 		String r = in.nextLine();
 		Person person = null;
 		if (r.isEmpty()) {
-			person = personRegister();
+			person = registerPerson();
 		} else {
 			person = PersonController.getById(Integer.parseInt(r));
 		}
 		return person;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

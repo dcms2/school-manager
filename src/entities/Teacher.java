@@ -1,12 +1,14 @@
 package entities;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Teacher extends Person {
 
-	private double salary;
+    private static final long serialVersionUID = 3684000220172464325L;
+    
+    private double salary;
 	
-	public Teacher(String name, Date birthdate, Sex sex, Address address, String email, double salary, int id) {
+	public Teacher(String name, Calendar birthdate, Sex sex, Address address, String email, double salary, int id) {
 		super(name, birthdate, sex, address, email);
 		this.salary = salary;
 	
