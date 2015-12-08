@@ -5,9 +5,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import controllers.PersonController;
-import controllers.StudentController;
-import controllers.TeacherController;
+import controllers.Controller;
+import controllers.ControllerFactory;
 import entities.Address;
 import entities.Person;
 import entities.Sex;
@@ -41,10 +40,10 @@ public class Main {
 				registerTeacher(); 
 				break;
 			case VIEW_STUDENT:
-				viewStudents();
+				viewControllerData("-- Estudantes cadastrados --", ControllerFactory.getInstance(ControllerFactory.STUDENT));
 				break;
 			case VIEW_TEACHER:
-				viewTeachers();
+				viewControllerData("-- Professores cadastrados --", ControllerFactory.getInstance(ControllerFactory.TEACHER));
 				break;
 			default:
 				break;
@@ -122,14 +121,16 @@ public class Main {
 	public static void registerStudent() {
 		System.out.println("-- Cadastro de Aluno --");
 		
+		Controller<Person> person_controller = ControllerFactory.getInstance(ControllerFactory.PERSON);
+		
 		System.out.println("Dados do Pai");
-		Person father = listOrRegisterParent(PersonController.getBySex(Sex.Male));
-		PersonController.save(father);
+		Person father = listOrRegisterParent(person_controller.getBySex(Sex.Male));
+		person_controller.save(father);
 		System.out.println();
 		
 		System.out.println("Dados da Mâe");
-		Person mother = listOrRegisterParent(PersonController.getBySex(Sex.Female));
-		PersonController.save(mother);
+		Person mother = listOrRegisterParent(person_controller.getBySex(Sex.Female));
+		person_controller.save(mother);
 		System.out.println();
 		
 		System.out.println("Dados do aluno");
@@ -137,7 +138,7 @@ public class Main {
 		System.out.println();
 		
 		Student student = new Student(studentPerson, father, mother);
-		StudentController.save(student);
+		ControllerFactory.getInstance(ControllerFactory.STUDENT).save(student);
 		System.out.println("Estudante " + student.getName() + " cadastrado com sucesso.");
 	}
 	
@@ -145,18 +146,13 @@ public class Main {
 		throw new NotImplementedException();
 	}
 	
-	public static void viewStudents() {
-		ArrayList<Student> students = StudentController.getAll();
-		for (Student s : students) {
-			System.out.println(s.getId() + ") " + s.getName());
+	public static void viewControllerData(String title, Controller controller) {
+		System.out.println(title);
+		ArrayList data = controller.getAll();
+		for (Object o : data) {
+			System.out.println(((Person) o).getId() + ") " + ((Person) o).getName());
 		}
-	}
-	
-	public static void viewTeachers() {
-		ArrayList<Teacher> teachers = TeacherController.getAll();
-		for (Teacher t : teachers) {
-			System.out.println(t.getId() + ") " + t.getName());
-		}
+		System.out.println("\n");
 	}
 	
 	public static Person listOrRegisterParent(ArrayList<Person> people) {
@@ -170,7 +166,8 @@ public class Main {
 		if (r.isEmpty()) {
 			person = registerPerson();
 		} else {
-			person = PersonController.getById(Integer.parseInt(r));
+			Controller<Person> controller = ControllerFactory.getInstance(ControllerFactory.PERSON); 
+			person = controller.getByID(Integer.parseInt(r));
 		}
 		return person;
 	}

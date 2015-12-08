@@ -1,7 +1,7 @@
 package aspects;
 
 import main.Main;
-import controllers.TeacherController;
+import controllers.ControllerFactory;
 import entities.Person;
 import entities.Teacher;
 import exceptions.NotImplementedException;
@@ -20,7 +20,7 @@ public aspect MainAspects {
 		double salary = Main.in.nextDouble();
 		
 		Teacher teacher = new Teacher(teacherPerson, salary);
-		TeacherController.save(teacher);
+		ControllerFactory.getInstance(ControllerFactory.TEACHER).save(teacher);
 		System.out.println("Professor " + teacher.getName() + " cadastrado com sucesso.");
 	}
 }

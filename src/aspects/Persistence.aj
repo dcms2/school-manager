@@ -12,9 +12,8 @@ import java.util.HashMap;
 import entities.Person;
 import entities.Student;
 import entities.Teacher;
-import controllers.PersonController;
-import controllers.StudentController;
-import controllers.TeacherController;
+import controllers.Controller;
+import controllers.ControllerFactory;
 import main.Main;
 
 public privileged aspect Persistence {
@@ -22,30 +21,32 @@ public privileged aspect Persistence {
 	private String STUDENT_FILENAME = "students.ser";
 
 	private String PERSON_FILENAME = "people.ser";
-	
+
 	private String TEACHER_FILENAME = "teachers.ser";
 
 	pointcut create():
-		execution(static * (PersonController || StudentController || TeacherController).save(Person || Student || Teacher));
+		execution(* Controller.save(Person || Teacher || Student));
 
 	pointcut program_starting():
 		execution(* Main.main(*));
 
 	after(Person p) returning: create() && args(p) {
 		try {
+			Controller controller;
+			String filename;
 			if (p instanceof Student) {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(STUDENT_FILENAME));
-				oos.writeObject(StudentController.getData());
-				oos.close();
+				controller = ControllerFactory.getInstance(ControllerFactory.STUDENT);
+				filename = STUDENT_FILENAME;
 			} else if (p instanceof Teacher) {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TEACHER_FILENAME));
-				oos.writeObject(TeacherController.getData());
-				oos.close();
+				controller = ControllerFactory.getInstance(ControllerFactory.TEACHER);
+				filename = TEACHER_FILENAME;
 			} else {
-				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PERSON_FILENAME));
-				oos.writeObject(PersonController.getData());
-				oos.close();
-			}			
+				controller = ControllerFactory.getInstance(ControllerFactory.PERSON);
+				filename = PERSON_FILENAME;
+			}
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
+			oos.writeObject(controller.getData());
+			oos.close();
 		} catch (IOException e) {
 			System.err.println("Erro ao persistir dados.");
 		}
@@ -53,30 +54,29 @@ public privileged aspect Persistence {
 
 	@SuppressWarnings("unchecked")
 	before(): program_starting() {
-		try {
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(STUDENT_FILENAME));
-			StudentController.save((HashMap<Integer, Student>) ois.readObject());
-			ois.close();
-			
-			StudentController.setNextID(StudentController.maxKeyValue() + 1);
-			
-			ois = new ObjectInputStream(new FileInputStream(TEACHER_FILENAME));
-			TeacherController.save((HashMap<Integer, Teacher>) ois.readObject());
-			ois.close();
-			
-			TeacherController.setNextID(TeacherController.maxKeyValue() + 1);
+		String filenames[] = new String[]{STUDENT_FILENAME, TEACHER_FILENAME, PERSON_FILENAME};
+		Controller controllers[] = new Controller[]{ControllerFactory.getInstance(ControllerFactory.STUDENT), ControllerFactory.getInstance(ControllerFactory.TEACHER), ControllerFactory.getInstance(ControllerFactory.PERSON)};
 
-			ois = new ObjectInputStream(new FileInputStream(PERSON_FILENAME));
-			PersonController.save((HashMap<Integer, Person>) ois.readObject());
-			ois.close();
-			
-			PersonController.setNextID(PersonController.maxKeyValue() + 1);
-		} catch (ClassNotFoundException e) {
-			System.err.println("Erro ao ler dados.");
-		} catch (FileNotFoundException e) {
-			System.err.println("file not found");
-		} catch (IOException e) {
-			System.err.println("Erro ao ler dados.");
+		for (int i = 0; i < filenames.length; ++i) {
+			try {
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filenames[i]));
+				if (i == 0) {
+					controllers[i].save((HashMap<Integer, Student>)ois.readObject());
+				} else if (i == 1) {
+					controllers[i].save((HashMap<Integer, Teacher>)ois.readObject());
+				} else if (i == 2) {
+					controllers[i].save((HashMap<Integer, Person>)ois.readObject());
+				}
+				ois.close();
+
+				controllers[i].setNextID(controllers[i].maxKeyValue() + 1);
+			} catch (ClassNotFoundException e) {
+				System.err.println("Erro ao ler dados.");
+			} catch (FileNotFoundException e) {
+				System.err.println("file not found");
+			} catch (IOException e) {
+				System.err.println("Erro ao ler dados.");
+			}
 		}
 	}
 }
