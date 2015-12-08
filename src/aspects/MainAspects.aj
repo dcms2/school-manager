@@ -23,4 +23,16 @@ public aspect MainAspects {
 		ControllerFactory.getInstance(ControllerFactory.TEACHER).save(teacher);
 		System.out.println("Professor " + teacher.getName() + " cadastrado com sucesso.");
 	}
+	
+	public static void Main.printWelcome() {
+		System.out.println("Seja bem vindo ao");
+		System.out.println("   _____      _                 _ __  __                                   ");
+		System.out.println("  / ____|    | |               | |  \\/  |                                  ");
+		System.out.println(" | (___   ___| |__   ___   ___ | | \\  / | __ _ _ __   __ _  __ _  ___ _ __ ");
+		System.out.println("  \\___ \\ / __| '_ \\ / _ \\ / _ \\| | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ | '__|");
+		System.out.println("  ____) | (__| | | | (_) | (_) | | |  | | (_| | | | | (_| | (_| |  __| |   ");
+		System.out.println(" |_____/ \\___|_| |_|\\___/ \\___/|_|_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|   ");
+		System.out.println("                                                            __/ |          ");
+		System.out.println("                                                           |___/           ");
+	}
 }

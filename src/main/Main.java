@@ -11,7 +11,6 @@ import entities.Address;
 import entities.Person;
 import entities.Sex;
 import entities.Student;
-import entities.Teacher;
 import exceptions.NotImplementedException;
 
 public class Main {
@@ -52,18 +51,6 @@ public class Main {
 		}
 		
 		in.close();
-	}
-	
-	public static void printWelcome() {
-		System.out.println("Seja bem vindo ao");
-		System.out.println("   _____      _                 _ __  __                                   ");
-		System.out.println("  / ____|    | |               | |  \\/  |                                  ");
-		System.out.println(" | (___   ___| |__   ___   ___ | | \\  / | __ _ _ __   __ _  __ _  ___ _ __ ");
-		System.out.println("  \\___ \\ / __| '_ \\ / _ \\ / _ \\| | |\\/| |/ _` | '_ \\ / _` |/ _` |/ _ | '__|");
-		System.out.println("  ____) | (__| | | | (_) | (_) | | |  | | (_| | | | | (_| | (_| |  __| |   ");
-		System.out.println(" |_____/ \\___|_| |_|\\___/ \\___/|_|_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|   ");
-		System.out.println("                                                            __/ |          ");
-		System.out.println("                                                           |___/           ");
 	}
 	
 	public static void clear() {
