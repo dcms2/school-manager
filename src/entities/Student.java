@@ -7,8 +7,6 @@ import java.util.Date;
 public class Student implements Serializable {
 
 	private static final long serialVersionUID = 5802615147450164148L;
-
-	private Class classe;
 	
 	private Person father;
 	
@@ -20,21 +18,12 @@ public class Student implements Serializable {
 		this.mother = mother;
 	}
 	
-	public Student(String name, Calendar birthdate, Sex sex, Address address, String email, Class classe,
+	public Student(String name, Calendar birthdate, Sex sex, Address address, String email,
 			Person father, Person mother, int id) {
 		super(name, birthdate, sex, address, email);
-		this.classe = classe;
 		this.father = father;
 		this.mother = mother;
 		
-	}
-
-	public Class getClasse() {
-		return classe;
-	}
-
-	public void setClasse(Class classe) {
-		this.classe = classe;
 	}
 
 	public Person getFather() {
