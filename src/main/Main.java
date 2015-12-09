@@ -74,10 +74,10 @@ public class Main {
 		String city, country, street;
 		String email;
 		
-		System.out.print("Nome completo:");
+		System.out.print("Nome completo: ");
 		name = in.nextLine();
 		
-		System.out.print("Data de nascimento(ex: 10/08/1991):"); 
+		System.out.print("Data de nascimento(ex: 10/08/1991): "); 
 		String line[] = in.nextLine().split("/");
 		birthDate = new GregorianCalendar(Integer.parseInt(line[2]), Integer.parseInt(line[1]) - 1, Integer.parseInt(line[0]));
 		
