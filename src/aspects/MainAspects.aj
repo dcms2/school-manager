@@ -8,8 +8,14 @@ import exceptions.NotImplementedException;
 
 public aspect MainAspects {
 	
+	/**
+	 * Requisito 3: Declare soft.
+	 */
 	declare soft: NotImplementedException : withincode(* Main.main(*));
 	
+	/**
+	 * Requisitos 2.3 e 5: Advice around e override com around.
+	 */
 	@SuppressWarnings("unchecked")
 	void around(): execution(* Main.registerTeacher()) {
 		System.out.println("-- Cadastro de Professor --");
@@ -25,6 +31,9 @@ public aspect MainAspects {
 		System.out.println("Professor " + teacher.getName() + " cadastrado com sucesso.");
 	}
 	
+	/**
+	 * Requisito 6: Intertype declaration
+	 */
 	public static void Main.printWelcome() {
 		System.out.println("Seja bem vindo ao");
 		System.out.println("   _____      _                 _ __  __                                   ");
@@ -37,6 +46,9 @@ public aspect MainAspects {
 		System.out.println("                                                           |___/           ");
 	}
 	
+	/**
+	 * Requisito 2.1: Advice before
+	 */
 	before(): execution(* Main.main(*)) {
 		Main.printWelcome();
 	}

@@ -17,6 +17,9 @@ public class Main {
 	
 	public static Scanner in = new Scanner(System.in);
 
+	/**
+	 * Possible menu actions
+	 */
 	final static int REGISTER_STUDENT = 1;
 	final static int REGISTER_TEACHER = 2;
 	final static int VIEW_STUDENT = 3;
@@ -55,6 +58,9 @@ public class Main {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 	
+	/**
+	 * Prints all possible user actions and respective codes
+	 */
 	public static void printMenu() {
 		System.out.println("------------- MENU -------------");
 		System.out.println("  " + REGISTER_STUDENT + ") Cadastrar aluno");
@@ -64,6 +70,10 @@ public class Main {
 		System.out.println("\nDigite o numero da opcao desejada: ");
 	}
 	
+	/**
+	 * Requests all the information necessary for a Person and then returns a Person object.
+	 * @return Person
+	 */
 	public static Person registerPerson() {
 		String name;
 		int sexInput;  
@@ -103,6 +113,9 @@ public class Main {
 		return person;
 	}
 	
+	/**
+	 * Requests all the information necessary for a Student and then saves the student object.
+	 */
 	public static void registerStudent() {
 		System.out.println("-- Cadastro de Aluno --");
 		
@@ -127,10 +140,16 @@ public class Main {
 		System.out.println("Estudante " + student.getName() + " cadastrado com sucesso.");
 	}
 	
+	/**
+	 * Teacher registration method.
+	 */
 	public static void registerTeacher() throws NotImplementedException {
 		throw new NotImplementedException();
 	}
 	
+	/**
+	 * Displays all the data relative to a controller.
+	 */
 	public static void viewControllerData(String title, Controller controller) {
 		System.out.println(title);
 		ArrayList data = controller.getAll();
@@ -140,6 +159,9 @@ public class Main {
 		System.out.println("\n");
 	}
 	
+	/**
+	 * Prompts the user for the selection of an existing person or the creation of a new one.
+	 */
 	public static Person listOrRegisterParent(ArrayList<Person> people) {
 		System.out.println("Selecione uma das pessoas já registradas ou deixe em branco para criar uma nova");
 		for (Person p: people) {

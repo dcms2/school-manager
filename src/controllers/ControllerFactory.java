@@ -17,6 +17,11 @@ public class ControllerFactory {
 	@SuppressWarnings("rawtypes")
 	private static HashMap<Integer, Controller> instances = new HashMap<Integer, Controller>();
 	
+	/**
+	 * Returns the controller specified by type.
+	 * @param type
+	 * @return Controller
+	 */
 	@SuppressWarnings("rawtypes")
 	public static Controller getInstance(int type) {
 		if (!instances.containsKey(type)) {

@@ -24,12 +24,18 @@ public privileged aspect Persistence {
 
 	private String TEACHER_FILENAME = "teachers.ser";
 
+	/**
+	 * Requisito 1: Pointcuts
+	 */
 	pointcut create():
 		execution(* Controller.save(Person || Teacher || Student));
 
 	pointcut program_starting():
 		execution(* Main.main(*));
 
+	/**
+	 * Requisito 2.2: Advice after returning
+	 */
 	after(Person p) returning: create() && args(p) {
 		try {
 			Controller controller;
@@ -52,6 +58,9 @@ public privileged aspect Persistence {
 		}
 	}
 
+	/**
+	 * Requisito 2.1: Advice before
+	 */
 	@SuppressWarnings("unchecked")
 	before(): program_starting() {
 		String filenames[] = new String[]{STUDENT_FILENAME, TEACHER_FILENAME, PERSON_FILENAME};
