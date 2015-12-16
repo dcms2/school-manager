@@ -25,8 +25,6 @@ public class Main {
 	public static void main(String[] args) {
 		boolean running = true;
 		
-		printWelcome();
-		
 		while (running) {
 			printMenu();
 			int opt = in.nextInt();

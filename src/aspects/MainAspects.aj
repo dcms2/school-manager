@@ -10,6 +10,7 @@ public aspect MainAspects {
 	
 	declare soft: NotImplementedException : withincode(* Main.main(*));
 	
+	@SuppressWarnings("unchecked")
 	void around(): execution(* Main.registerTeacher()) {
 		System.out.println("-- Cadastro de Professor --");
 		
@@ -34,5 +35,9 @@ public aspect MainAspects {
 		System.out.println(" |_____/ \\___|_| |_|\\___/ \\___/|_|_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|   ");
 		System.out.println("                                                            __/ |          ");
 		System.out.println("                                                           |___/           ");
+	}
+	
+	before(): execution(* Main.main(*)) {
+		Main.printWelcome();
 	}
 }
