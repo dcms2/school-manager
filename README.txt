@@ -43,4 +43,4 @@ O programa original não possui a implementação do método registerTeacher e l
 O programa original não mostra nenhuma mensagem de boas-vindas, para deixar o sistema mais amigável, primeiramente injetamos o método estático printWelcome na classe Main utilizando intertype-declaration e, após isso, com o uso de um advice before, antes do ínicio do sistema nós chamamos esse método, mostrando assim a mensagem inicial.
 
 --- Requisito 4 ---
-Esse item não tem nenhuma motivação além de passar na cadeira.
+Declarar toda a herança do sistema usando aspectos.
